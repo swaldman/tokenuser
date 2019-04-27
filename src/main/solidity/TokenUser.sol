@@ -30,6 +30,7 @@ contract TokenUser {
     public
     returns (uint transferred) {
       require( msg.sender == otherTokenOwner, "Only the other token owner can withdraw this contract's balance in other tokens." );
+      require( _otherTokenContractAddress != address(theToken), "theToken is managed by the logic of this smart contract, cannot be withdrawn by otherTokenOwner." );
 
       ERC20 otherToken = ERC20( _otherTokenContractAddress );
       uint balance = otherToken.balanceOf( address(this) );
